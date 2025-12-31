@@ -33,8 +33,6 @@ function operate(num1, operator, num2) {
 
 let screen = document.querySelector('#screen');
 let keypad = document.querySelector('#keypad');
-let clearBtn = document.querySelector('#clear');
-let deleteBtn = document.querySelector('#delete');
 
 keypad.addEventListener('click', (e) => {
   const button = e.target.closest('.button');
