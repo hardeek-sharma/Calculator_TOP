@@ -93,6 +93,8 @@ body {
   margin: 15px 0px;
   border-radius: 12.5px;
   background-color: #0f172a64;
+  transition: all;
+  transition-duration: 125ms;
 }
 #zero,
 #equals {
