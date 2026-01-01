@@ -77,7 +77,10 @@ keypad.addEventListener('click', (e) => {
       screen.textContent += '9';
       break;
     case 'dot':
-      screen.textContent += '.';
+      if (!screen.textContent.includes('.')) {
+        screen.textContent += '.';
+      }
+      
       break;
 
     // Operators
