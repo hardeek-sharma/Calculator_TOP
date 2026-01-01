@@ -14,9 +14,11 @@ function divide(a, b) {
   return a/b;
 }
 
-let num1;
-let operator;
-let num2;
+let num1 = '';
+let operator = '';
+let num2 = '';
+
+let operatorInUse = false;
 
 function operate(num1, operator, num2) {
   switch (operator) {
@@ -31,21 +33,8 @@ function operate(num1, operator, num2) {
   }
 }
 
-let screen = document.querySelector('#screen');
-let keypad = document.querySelector('#keypad');
-
-keypad.addEventListener('click', (e) => {
-  const button = e.target.closest('.button');
-  switch (button.id) {
-    // Functions
-    case 'clear':             // Clear
-      screen.textContent = '';
-      break;
-    case 'delete':              // Delete
-      screen.textContent = screen.textContent.slice(0, -1);
-      break;
-
-    // Numbers & Dot
+function checkNumberPressed(id) {
+  switch (id) {
     case 'zero':
       screen.textContent += '0';
       break;
@@ -80,26 +69,68 @@ keypad.addEventListener('click', (e) => {
       if (!screen.textContent.includes('.')) {
         screen.textContent += '.';
       }
-      
       break;
+  }
+}
 
-    // Operators
+function checkOperatorPressed(id) {
+  switch (id) {
     case 'addition':            // Addition
-      
+      operator = '+';
       break;
     case 'subtraction':         // Subtraction
-      
+      operator = '-';
       break;
     case 'multiplication':      // Multiplication
-      
+      operator = '*';
       break;
     case 'division':            // Division
+      operator = '/';
+      break;
+  }
+  screen.textContent = '';
+  operatorInUse = true;
+}
+
+function checkSpecialPressed(id) {
+  switch (id) {
+    case 'clear':
+      screen.textContent = '';
+      num1 = '';
+      operator = '';
+      num2 = '';
+      operatorInUse = false;
+      break;
+    case 'delete':
+      screen.textContent = screen.textContent.slice(0, -1);
+      break;
+    case 'equals':
       
       break;
-    case 'equals':              // Equals
-      
+  }
+}
+
+let screen = document.querySelector('#screen');
+let keypad = document.querySelector('#keypad');
+
+keypad.addEventListener('click', (e) => {
+  const button = e.target.closest('.button');
+  if (!button) return;
+
+  switch (true) {
+    case button.classList.contains('number'):
+      checkNumberPressed(button.id);
+      operatorInUse ? num2 = Number(screen.textContent) : num1 = Number(screen.textContent);
+      break;
+    case button.classList.contains('operator'):
+      checkOperatorPressed(button.id);
+      break;
+    case button.classList.contains('special'):
+      checkSpecialPressed(button.id);
       break;
   }
 
   screen.scrollLeft = screen.scrollWidth;
+
+  console.log(`${num1}, ${operator}, ${num2}`);
 })
