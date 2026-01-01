@@ -82,19 +82,19 @@ keypad.addEventListener('click', (e) => {
 
     // Operators
     case 'addition':            // Addition
-      screen.textContent += '+';
+      
       break;
     case 'subtraction':         // Subtraction
-      screen.textContent += '-';
+      
       break;
     case 'multiplication':      // Multiplication
-      screen.textContent += '*';
+      
       break;
     case 'division':            // Division
-      screen.textContent += '/';
+      
       break;
     case 'equals':              // Equals
-      screen.textContent += '=';
+      
       break;
   }
 
