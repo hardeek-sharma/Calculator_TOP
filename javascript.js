@@ -67,7 +67,11 @@ function checkNumberPressed(id) {
       break;
     case 'dot':
       if (!screen.textContent.includes('.')) {
-        screen.textContent += '.';
+        if (screen.textContent == '') {
+          screen.textContent += '0.';
+        } else {
+          screen.textContent += '.';
+        }
       }
       break;
   }
@@ -123,7 +127,9 @@ keypad.addEventListener('click', (e) => {
       operatorInUse ? num2 = Number(screen.textContent) : num1 = Number(screen.textContent);
       break;
     case button.classList.contains('operator'):
-      checkOperatorPressed(button.id);
+      if (num1 != '') {
+        checkOperatorPressed(button.id);
+      }
       break;
     case button.classList.contains('special'):
       checkSpecialPressed(button.id);
