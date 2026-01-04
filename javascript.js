@@ -19,6 +19,7 @@ let operator = '';
 let num2 = '';
 
 let operatorInUse = false;
+let isCalculationDone = false;
 
 function operate(num1, operator, num2) {
   switch (operator) {
@@ -134,6 +135,7 @@ function checkSpecialPressed(id) {
       
       num1 = Number(screen.textContent);
       operatorInUse = false;
+      isCalculationDone = true;
       break;
   }
 }
@@ -147,6 +149,13 @@ keypad.addEventListener('click', (e) => {
 
   switch (true) {
     case button.classList.contains('number'):
+      if (isCalculationDone) {
+        screen.textContent = '';
+        num1 = '';
+        num2 = '';
+        operator = '';
+        isCalculationDone = false; 
+      }
       if (operatorInUse && num2 === '') {
         screen.textContent = ''; 
       }
