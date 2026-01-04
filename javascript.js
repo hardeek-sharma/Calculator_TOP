@@ -78,6 +78,16 @@ function checkNumberPressed(id) {
 }
 
 function checkOperatorPressed(id) {
+  if (operatorInUse) {
+    if (screen.textContent.includes('.')) {
+        screen.textContent = operate(num1, operator, num2).toFixed(7);
+      } else {
+        screen.textContent = operate(num1, operator, num2);
+      }
+      
+      num1 = Number(screen.textContent);
+      operatorInUse = false;
+  }
   switch (id) {
     case 'addition':            // Addition
       operator = '+';
@@ -92,7 +102,7 @@ function checkOperatorPressed(id) {
       operator = '/';
       break;
   }
-  screen.textContent = '';
+  
   operatorInUse = true;
 }
 
@@ -110,13 +120,20 @@ function checkSpecialPressed(id) {
         screen.textContent = screen.textContent.slice(0, -1);
         num1 = screen.textContent;
       } else {
+        screen.textContent = screen.textContent.slice(0, -1);
         num2 = screen.textContent;
       }
       
       break;
     case 'equals':
-      screen.textContent = operate(num1, operator, num2);
-      num1 = operate(num1, operator, num2);
+      if (screen.textContent.includes('.')) {
+        screen.textContent = operate(num1, operator, num2).toFixed(7);
+      } else {
+        screen.textContent = operate(num1, operator, num2);
+      }
+      
+      num1 = Number(screen.textContent);
+      operatorInUse = false;
       break;
   }
 }
@@ -130,6 +147,9 @@ keypad.addEventListener('click', (e) => {
 
   switch (true) {
     case button.classList.contains('number'):
+      if (operatorInUse && num2 === '') {
+        screen.textContent = ''; 
+      }
       checkNumberPressed(button.id);
       operatorInUse ? num2 = Number(screen.textContent) : num1 = Number(screen.textContent);
       break;
