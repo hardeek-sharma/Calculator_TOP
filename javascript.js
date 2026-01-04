@@ -106,10 +106,17 @@ function checkSpecialPressed(id) {
       operatorInUse = false;
       break;
     case 'delete':
-      screen.textContent = screen.textContent.slice(0, -1);
+      if (Number(screen.textContent) == num1) {
+        screen.textContent = screen.textContent.slice(0, -1);
+        num1 = screen.textContent;
+      } else {
+        num2 = screen.textContent;
+      }
+      
       break;
     case 'equals':
-      
+      screen.textContent = operate(num1, operator, num2);
+      num1 = operate(num1, operator, num2);
       break;
   }
 }
